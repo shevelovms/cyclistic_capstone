@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: cleaned_cyclistic_data_2024
+    description: >
+      Cleaned Cyclistic 2024 trip data. Deduplicated on ride_id,
+      excludes trips with null timestamps or unrealistic durations
+      (<= 0 minutes or >= 24 hours).
+    columns:
+      - name: ride_id
+        description: Unique identifier for each trip, per Divvy source documentation.
+        tests:
+          - unique
+          - not_null
+
+      - name: started_at
+        description: Timestamp the trip started.
+        tests:
+          - not_null
+
+      - name: ended_at
+        description: Timestamp the trip ended.
+        tests:
+          - not_null
+
+      - name: member_casual
+        description: Rider type - either annual member or casual rider.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['member', 'casual']
+
+      - name: rideable_type
+        description: Type of bike used for the trip.
+        tests:
+          - not_null
+
+    # Custom (singular) tests referenced below live as standalone
+    # .sql files in a tests/ directory in a real dbt project.
+    # See: tests/assert_ride_duration_within_bounds.sql

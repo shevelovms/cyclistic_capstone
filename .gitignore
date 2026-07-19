@@ -8,5 +8,7 @@ data_raw/*
 
 # Ignore the full cleaned dataset; keep the sample
 data_clean/cyclistic_cleaned_data.csv
-
+csv/
+xlsx/
+analysis_output_20250225/
 
